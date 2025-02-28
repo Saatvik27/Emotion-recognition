@@ -16,17 +16,13 @@ EMOTIONS = ["angry" ,"disgust","scared", "happy", "sad", "surprised",
  "neutral"]
 
 
-#feelings_faces = []
-#for index, emotion in enumerate(EMOTIONS):
-   # feelings_faces.append(cv2.imread('emojis/' + emotion + '.png', -1))
 
-# starting video streaming
-cv2.namedWindow('your_face')
+cv2.namedWindow('your_face')   
 camera = cv2.VideoCapture(0)
 while True:
     frame = camera.read()[1]
     #reading the frame
-    frame = imutils.resize(frame,width=300)
+    frame = imutils.resize(frame,width=600)
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     faces = face_detection.detectMultiScale(gray,scaleFactor=1.1,minNeighbors=5,minSize=(30,30),flags=cv2.CASCADE_SCALE_IMAGE)
     
@@ -43,7 +39,7 @@ while True:
         roi = roi.astype("float") / 255.0
         roi = img_to_array(roi)
         roi = np.expand_dims(roi, axis=0)
-        
+
         
         preds = emotion_classifier.predict(roi)[0]
         emotion_probability = np.max(preds)
